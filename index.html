@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dan Storch</title>
+  <meta name="description" content="Dan Storch is the product and marketing side of small software companies. Currently working on Schoolcase in Boulder, Colorado.">
+  <meta name="theme-color" content="#E8ECE3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <style>
+    /* ------------------------------------------------------------
+       Tokens
+       ------------------------------------------------------------ */
+    :root {
+      --ground: #E8ECE3;
+      --ground-deep: #DCE2D6;
+      --ink: #1B201C;
+      --ink-soft: #4A524C;
+      --pine: #2C5847;
+      --pine-bright: #3C7A61;
+
+      /* Sans exploration B: Schibsted Grotesk, one editorial grotesk for all copy.
+         Heavy, tightly set display; true italics for the signoff. */
+      --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+      --font-body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+      /* Fluid type scale */
+      --t-sm: clamp(0.875rem, 0.83rem + 0.2vw, 1rem);
+      --t-base: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      --t-lead: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+      --t-display: clamp(2.75rem, 1.4rem + 6.5vw, 7.5rem);
+
+      /* Fluid spacing scale */
+      --s-1: 0.5rem;
+      --s0: 1rem;
+      --s1: 1.5rem;
+      --s2: 2.5rem;
+      --s3: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+      --s4: clamp(4rem, 3rem + 5vw, 8rem);
+      --gutter: clamp(1.25rem, 1rem + 2.5vw, 4rem);
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur: 0.4s;
+      --measure: 34rem;
+    }
+
+    /* ------------------------------------------------------------
+       Base
+       ------------------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: var(--t-base);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    p { margin: 0 0 var(--s1); max-width: var(--measure); }
+    p:last-child { margin-bottom: 0; }
+    ::selection { background: var(--pine); color: var(--ground); }
+
+    :focus-visible {
+      outline: 2px solid var(--pine-bright);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* Links */
+    a {
+      color: inherit;
+      text-decoration: none;
+      background-image: linear-gradient(currentColor, currentColor);
+      background-repeat: no-repeat;
+      background-size: 100% 1px;
+      background-position: 0 100%;
+      transition: background-size var(--dur) var(--ease), color var(--dur) var(--ease);
+    }
+    a:hover, a:focus-visible { background-size: 100% 2px; color: var(--pine); }
+    a:active { color: var(--pine-bright); }
+
+    /* ------------------------------------------------------------
+       Header
+       ------------------------------------------------------------ */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: var(--s1) var(--gutter);
+      font-size: var(--t-sm);
+      font-weight: 500;
+    }
+    .site-header nav { display: flex; gap: var(--s0); }
+    .site-header nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 var(--s-1);
+      background: none;
+      position: relative;
+    }
+    .site-header nav a::after {
+      content: "";
+      position: absolute;
+      left: var(--s-1); right: var(--s-1); bottom: 10px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--dur) var(--ease);
+    }
+    .site-header nav a:hover::after,
+    .site-header nav a:focus-visible::after { transform: scaleX(1); }
+
+    /* ------------------------------------------------------------
+       Layout
+       ------------------------------------------------------------ */
+    main { padding: 0 var(--gutter) var(--s4); }
+
+    .intro {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--s1);
+      row-gap: var(--s2);
+      align-items: start;
+    }
+
+    .portrait {
+      grid-column: 1 / 6;
+      position: sticky;
+      top: var(--s1);
+      margin: 0;
+    }
+    .portrait-frame {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: 6px;
+      background: var(--ground-deep);
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 1.4s var(--ease);
+    }
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 30%;
+      transform: scale(1.08);
+      transition: transform 1.8s var(--ease);
+    }
+    .is-ready .portrait-frame { clip-path: inset(0 0 0 0); }
+    .is-ready .portrait-frame img { transform: scale(1); }
+    .portrait figcaption {
+      margin-top: var(--s0);
+      font-size: var(--t-sm);
+      color: var(--ink-soft);
+    }
+
+    .story {
+      grid-column: 7 / 13;
+      padding-top: var(--s3);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: var(--t-display);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      margin: 0 0 var(--s2) -0.04em;
+      max-width: none;
+      opacity: 0;
+      transform: translateY(0.4em);
+      transition: opacity 1s var(--ease) 0.35s, transform 1.2s var(--ease) 0.35s;
+    }
+    .is-ready h1 { opacity: 1; transform: none; }
+
+    .lead {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: var(--t-lead);
+      line-height: 1.34;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--s3);
+      opacity: 0;
+      transition: opacity 1s var(--ease) 0.6s;
+    }
+    .is-ready .lead { opacity: 1; }
+    .lead a { color: var(--pine); }
+
+    .bio {
+      opacity: 0;
+      transition: opacity 1s var(--ease) 0.8s;
+    }
+    .is-ready .bio { opacity: 1; }
+    .bio p + p { margin-top: 0; }
+
+    .signoff {
+      margin-top: var(--s3);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 500;
+      font-size: var(--t-lead);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink-soft);
+    }
+
+    /* ------------------------------------------------------------
+       Contact
+       ------------------------------------------------------------ */
+    .contact {
+      grid-column: 7 / 13;
+      margin-top: var(--s3);
+      padding-top: var(--s2);
+      border-top: 1px solid var(--ground-deep);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-1) var(--s1);
+      font-size: var(--t-sm);
+      font-weight: 500;
+    }
+    .contact a, .contact button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      min-height: 48px;
+      padding: 0 1.1rem;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      cursor: pointer;
+      transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+    }
+    .contact a:hover, .contact a:focus-visible,
+    .contact button:hover, .contact button:focus-visible {
+      background: var(--ink);
+      color: var(--ground);
+    }
+    .contact a:active, .contact button:active { transform: scale(0.97); }
+    .contact button[data-copied="true"] {
+      background: var(--pine);
+      border-color: var(--pine);
+      color: var(--ground);
+    }
+
+    /* ------------------------------------------------------------
+       Responsive
+       ------------------------------------------------------------ */
+    @media (max-width: 900px) {
+      .portrait { grid-column: 1 / 8; position: static; }
+      .story, .contact { grid-column: 1 / 13; }
+      .story { padding-top: 0; }
+      .intro { row-gap: var(--s3); }
+    }
+    @media (max-width: 600px) {
+      .portrait { grid-column: 1 / 13; }
+      .site-header nav { gap: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .portrait-frame, .portrait-frame img, h1, .lead, .bio {
+        transition: none;
+        clip-path: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav aria-label="Contact">
+      <a href="mailto:dan@danstorch.com">Email</a>
+      <a href="https://www.linkedin.com/in/danstorch" rel="me noopener" target="_blank">LinkedIn</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="intro" aria-labelledby="hello">
+
+      <figure class="portrait">
+        <div class="portrait-frame">
+          <img src="img/dan-portrait.jpg" alt="Dan Storch, looking down, wearing round tortoiseshell glasses and a grey t-shirt" width="1600" height="2133" fetchpriority="high" decoding="async">
+        </div>
+        <figcaption>Boulder, Colorado</figcaption>
+      </figure>
+
+      <article class="story">
+        <h1 id="hello">Hi, I'm Dan.</h1>
+
+        <p class="lead">I'm the product and marketing side of small software companies: the idea, the concept, the campaign, and whatever else needs doing. Right now that's <a href="https://schoolcase.app" rel="noopener" target="_blank">Schoolcase</a>, which takes the flood of school and activity emails parents get every day and turns it into something you can actually act on.</p>
+
+        <div class="bio">
+          <p>I was born in Scotland and lived there until I was nine, when my family emigrated to Massachusetts in the mid-80s. I studied at UMass Amherst, moved to Colorado in 2003, and have called it home ever since, with detours to work in New Zealand and San Francisco along the way. The foothills above Boulder are where I landed for good.</p>
+
+          <p>I've been building companies for about 25 years. I co-founded Good Apples, a brand and design agency that picked up a few awards before it was acqui-hired in 2018. Before that I co-founded Hilite, an early Web 2.0 content curation site. I've run Pentatonic.Co, an IP licensing and strategy practice, and spent several years at a mobile accessories manufacturer where I took over a licensing program that was in rough shape, got it back on track, and grew it into a multimillion-dollar business. The thread through all of it is product strategy: figuring out what something should be and who it's for.</p>
+
+          <p>I'm a single dad to two kids. One just started college, the other is in 8th grade and at 13 is already my height. Most of what I know about school communication chaos I learned firsthand.</p>
+
+          <p>These days you'll find me working on Schoolcase out of Roost, my favorite coworking space in Boulder.</p>
+
+          <p class="signoff">Cheers,<br>Dan</p>
+        </div>
+      </article>
+
+      <footer class="contact" aria-label="Get in touch">
+        <a href="mailto:dan@danstorch.com">dan@danstorch.com</a>
+        <button type="button" id="copy-email" aria-live="polite">Copy email</button>
+        <a href="https://www.linkedin.com/in/danstorch" rel="me noopener" target="_blank">LinkedIn</a>
+      </footer>
+
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var img = document.querySelector('.portrait-frame img');
+
+      // One orchestrated reveal once the portrait has decoded.
+      function ready() { root.classList.add('is-ready'); }
+      if (img.complete) { ready(); }
+      else {
+        img.addEventListener('load', ready, { once: true });
+        img.addEventListener('error', ready, { once: true });
+        setTimeout(ready, 2500); // never leave the page blank
+      }
+
+      // Copy email with clear feedback, then reset.
+      var btn = document.getElementById('copy-email');
+      var email = 'dan@danstorch.com';
+      var timer;
+      btn.addEventListener('click', function () {
+        function done(ok) {
+          btn.textContent = ok ? 'Copied' : 'Copy failed';
+          btn.dataset.copied = ok ? 'true' : 'false';
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            btn.textContent = 'Copy email';
+            delete btn.dataset.copied;
+          }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(function () { done(true); }, function () { done(false); });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = email; ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          var ok = false;
+          try { ok = document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done(ok);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
